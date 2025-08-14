@@ -148,7 +148,7 @@ public class CanalRabbitMQProducer extends AbstractMQProducer implements CanalMQ
                     .messageTopics(message, destination.getTopic(), destination.getDynamicTopic());
 
                 for (Map.Entry<String, com.alibaba.otter.canal.protocol.Message> entry : messageMap.entrySet()) {
-                    final String topicName = entry.getKey().replace('.', '_');
+                    final String topicName = entry.getKey().replace(" ", "");
                     final com.alibaba.otter.canal.protocol.Message messageSub = entry.getValue();
 
                     template.submit(() -> send(destination, topicName, messageSub));

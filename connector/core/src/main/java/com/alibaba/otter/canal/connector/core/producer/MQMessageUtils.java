@@ -170,13 +170,13 @@ public class MQMessageUtils {
                 Set<String> topics = matchTopics(schemaName + "." + tableName, dynamicTopicConfigs);
                 if (topics != null) {
                     for (String topic : topics) {
-                        put2MapMessage(messages, message.getId(), topic, entry);
+                        put2MapMessage(messages, message.getId(), defaultTopic + "." + topic, entry);
                     }
                 } else {
                     topics = matchTopics(schemaName, dynamicTopicConfigs);
                     if (topics != null) {
                         for (String topic : topics) {
-                            put2MapMessage(messages, message.getId(), topic, entry);
+                            put2MapMessage(messages, message.getId(), defaultTopic + "." + topic, entry);
                         }
                     } else {
                         put2MapMessage(messages, message.getId(), defaultTopic, entry);
@@ -375,6 +375,8 @@ public class MQMessageUtils {
             flatMessage.setTs(System.currentTimeMillis());
             flatMessage.setSql(rowChange.getSql());
             flatMessage.setGtid(entry.getHeader().getGtid());
+            flatMessage.setFile(entry.getHeader().getLogfileName());
+            flatMessage.setPos(entry.getHeader().getLogfileOffset());
 
             if (!rowChange.getIsDdl()) {
                 Map<String, Integer> sqlType = new LinkedHashMap<>();
@@ -526,6 +528,8 @@ public class MQMessageUtils {
                             flatMessageTmp.setTs(flatMessage.getTs());
                             flatMessageTmp.setPkNames(flatMessage.getPkNames());
                             flatMessageTmp.setGtid(flatMessage.getGtid());
+                            flatMessageTmp.setFile(flatMessage.getFile());
+                            flatMessageTmp.setPos(flatMessage.getPos());
                         }
                         List<Map<String, String>> data = flatMessageTmp.getData();
                         if (data == null) {

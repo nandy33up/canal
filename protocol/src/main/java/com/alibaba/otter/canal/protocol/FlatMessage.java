@@ -28,6 +28,8 @@ public class FlatMessage implements Serializable {
     private List<Map<String, String>> data;
     private List<Map<String, String>> old;
     private String                    gtid;
+    private String                    file;
+    private Long                      pos;
 
     public FlatMessage() {
     }
@@ -155,10 +157,26 @@ public class FlatMessage implements Serializable {
         this.gtid = gtid;
     }
 
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public Long getPos() {
+        return pos;
+    }
+
+    public void setPos(Long pos) {
+        this.pos = pos;
+    }    
+
     @Override
     public String toString() {
         return "FlatMessage [id=" + id + ", database=" + database + ", table=" + table + ", isDdl=" + isDdl + ", type="
                + type + ", es=" + es + ", ts=" + ts + ", sql=" + sql + ", sqlType=" + sqlType + ", mysqlType="
-               + mysqlType + ", data=" + data + ", old=" + old + ", gtid=" + gtid +"]";
+               + mysqlType + ", data=" + data + ", old=" + old + ", gtid=" + gtid + ", file=" + file + ", pos=" + pos +"]";
     }
 }
