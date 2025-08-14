@@ -8,3 +8,10 @@
 -  connector/rocketmq-connector/src/main/java/com/alibaba/otter/canal/connector/rocketmq/producer/CanalRocketMQProducer.java
 ## 3. topic消息中增加file、pos元数据，搜索 public class FlatMessage
 -  protocol/src/main/java/com/alibaba/otter/canal/protocol/FlatMessage.java
+
+# 编译打包
+## 1. 编译
+- mvn clean package -DskipTests
+## 2. 打包
+- tar -czvf canal-server-1.1.9.tar.gz -C deployer/target canal
+- tar -czvf canal-admin-1.1.9.tar.gz -C admin/admin-web/target/ canal-admin
